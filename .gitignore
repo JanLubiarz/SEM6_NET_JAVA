@@ -23,7 +23,17 @@
 hs_err_pid*
 replay_pid*
 
-# My ignored files
+# My ignored files for Lab00
 Lab00/.vs
 Lab00/bin
 Lab00/obj
+
+# My ignored files for Lab01
+Lab01/.vs
+Lab01/bin
+Lab01/obj
+Lab01/TestResults
+Lab01_ProblemPlecakowyApp/bin
+Lab01_ProblemPlecakowyApp/obj
+Lab01_UnitTests/bin
+Lab01_UnitTests/obj
