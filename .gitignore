@@ -37,3 +37,8 @@ Lab01_ProblemPlecakowyApp/bin
 Lab01_ProblemPlecakowyApp/obj
 Lab01_UnitTests/bin
 Lab01_UnitTests/obj
+
+# My ignored files for Lab02
+Lab02_WeatherApi/.vs
+Lab02_WeatherApi/bin
+Lab02_WeatherApi/obj

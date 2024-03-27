@@ -28,13 +28,13 @@ namespace Lab01_ProblemPlecakowyApp
 
             if (int.TryParse(iloscPrzedmiotowText, out parsedIloscPrzedmiotow))
             {
-                // ciag jest w prawidlowym formacie, przypisujemy wartosc
+                // ciag jest w prawidlowym formacie tryparse udalo sie przekonwertowac string do inta
                 iloscPrzedmiotow = parsedIloscPrzedmiotow;
                 czyNieMaBledowLiczbaPrzedmiotow = true;
             }
             else
             {
-                // obsluga bledu
+                // obsluga bledu z wyskakujacym okienkiem
                 MessageBox.Show("Nieprawid³owy format liczby ca³kowitej.");
                 czyNieMaBledowLiczbaPrzedmiotow = false;
             }
@@ -66,7 +66,6 @@ namespace Lab01_ProblemPlecakowyApp
             }
             else
             {
-                // obsluga bledu
                 MessageBox.Show("Popraw dane wejsciowe, najprawdopodobniej nie podano tam liczby calkowitej.");
             }
 
@@ -79,13 +78,11 @@ namespace Lab01_ProblemPlecakowyApp
 
             if (int.TryParse(pojemnoscText, out parsedPojemnosc))
             {
-                // ciag jest w prawidlowym formacie, przypisujemy wartosc
                 pojemnosc = parsedPojemnosc;
                 czyNieMaBledowPojemnosc = true;
             }
             else
             {
-                // obsluga bledu
                 MessageBox.Show("Nieprawid³owy format liczby ca³kowitej.");
                 czyNieMaBledowPojemnosc = false;
             }
@@ -98,13 +95,11 @@ namespace Lab01_ProblemPlecakowyApp
 
             if (int.TryParse(ziarnoText, out parsedZiarno))
             {
-                // ciag jest w prawidlowym formacie, przypisujemy wartosc
                 ziarno = parsedZiarno;
                 czyNieMaBledowZiarno = true;
             }
             else
             {
-                // obsluga bledu
                 MessageBox.Show("Nieprawid³owy format liczby ca³kowitej.");
                 czyNieMaBledowZiarno = false;
             }
