@@ -42,3 +42,11 @@ Lab01_UnitTests/obj
 Lab02_WeatherApi/.vs
 Lab02_WeatherApi/bin
 Lab02_WeatherApi/obj
+
+# My ignored files for Lab03
+Lab03_ObliczeniaWielowatkowe/.vs
+Lab03_ObliczeniaWielowatkowe/bin
+Lab03_ObliczeniaWielowatkowe/obj
+Lab03_MultiThreadPhoto/.vs
+Lab03_MultiThreadPhoto/bin
+Lab03_MultiThreadPhoto/obj

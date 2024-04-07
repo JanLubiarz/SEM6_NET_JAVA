@@ -251,7 +251,7 @@ namespace Lab02_WeatherApi
 
             // Utwórz nowe okno
             Form wykresForm = new Form();
-            wykresForm.Text = "Wykres Temperatury";
+            wykresForm.Text = "Wykres Pogodowy";
             wykresForm.Size = new Size(700, 500);
             wykresForm.Controls.Add(wykres);
 

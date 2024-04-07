@@ -46,26 +46,9 @@ namespace Lab02_WeatherApi
             kontekst.SaveChanges();
         }
 
-
-        public void ResetujAutoinkrementacje()
-        {
-            int maxValue = kontekst.Weathers.Max(w => w.Id);
-
-            try
-            {
-                kontekst.Database.ExecuteSqlRaw("DELETE FROM sqlite_sequence WHERE name='Weathers'");
-                kontekst.Database.ExecuteSql($"INSERT INTO sqlite_sequence (name, seq) VALUES ('Weathers', {maxValue + 1})");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Wystąpił błąd podczas resetowania autoinkrementacji: {ex.Message}");
-            }
-        }
-
         public void usun()
         {
-            kontekst.Weathers.RemoveRange(kontekst.Weathers);
-            ResetujAutoinkrementacje();
+            kontekst.Weathers.RemoveRange(kontekst.Weathers);        
             kontekst.SaveChanges();
         }
 
