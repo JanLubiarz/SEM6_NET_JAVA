@@ -50,3 +50,8 @@ Lab03_ObliczeniaWielowatkowe/obj
 Lab03_MultiThreadPhoto/.vs
 Lab03_MultiThreadPhoto/bin
 Lab03_MultiThreadPhoto/obj
+
+# My ignored files for Lab04
+Lab04/.vs
+Lab04/bin
+Lab04/obj
