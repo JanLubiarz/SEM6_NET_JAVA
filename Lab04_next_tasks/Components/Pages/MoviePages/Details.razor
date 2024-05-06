@@ -1,0 +1,143 @@
+﻿@page "/movies/details"
+@inject Lab04_next_tasks.Data.ApplicationDbContext DB
+@using Lab04_next_tasks.Components
+@inject NavigationManager NavigationManager
+@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    @if (movie is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Title</dt>
+            <dd class="col-sm-10">@movie.Title</dd>
+            <dt class="col-sm-2">Description</dt>
+            <dd class="col-sm-10">@movie.Description</dd>
+            <dt class="col-sm-2">RelaseDate</dt>
+            <dd class="col-sm-10">@movie.RelaseDate</dd>
+            <dt class="col-sm-2">Rate</dt>
+            <dd class="col-sm-10">@movie.Rate</dd>
+            <dt class="col-sm-2">Image</dt>
+            <dd class="col-sm-10">
+                @if (!string.IsNullOrEmpty(movie.ImageUrl))
+                {
+                    <img src="@movie.ImageUrl" alt="Movie Image" style="max-width: 300px;" />
+                }
+                else
+                {
+                    <p>No image available</p>
+                }
+            </dd>
+        </dl>
+        <div>
+            <a href="@($"/movies/edit?id={movie.Id}")">Edit</a> |
+            <a href="@($"/movies")">Back to List</a>
+        </div>
+    }
+</div>
+
+@if (movie != null)
+{
+    <div>
+        <h4>Add a rating to database</h4>
+        <EditForm method="post" Model="movie" OnValidSubmit="UpdateRating" FormName="details" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            @* <label for="newRate">New Rating:</label>
+            <InputNumber @bind-Value="newRating" @bind-Value:event="oninput" class="form-control" id="newRate" /> *@
+
+             <input type="number" class="form-control" @onchange="@initializeRatingValue" style="margin-bottom: 20px;" />
+            <p>Current newRating: @newRating</p> 
+
+
+            <button type="submit" style="margin-top: 20px;" class="btn btn-success">Send a rate!</button>
+        </EditForm>
+    </div>
+}
+
+@code {
+
+    Movie? movie;
+    private float? newRating { get; set; }
+
+
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        movie = await DB.Movie.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (movie is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private void initializeRatingValue(ChangeEventArgs arg)
+    {
+        if (arg.Value != null)
+        {
+            // Konwersja do flat
+            if (float.TryParse(arg.Value.ToString(), out float result))
+            {
+                newRating = result;
+            }
+            else
+            {
+                // Gdy nie uda sie sparsowac
+                newRating = null; 
+                Console.WriteLine("Failed to convert to float");
+            }
+        }
+        else
+        {
+            newRating = null; // Jak wartosc jest pusta ustaw null
+        }
+    }
+
+    private async Task UpdateRating()
+    {
+        // testy
+        Console.WriteLine($"Current Rate: {movie.Rate}, New Rating: {newRating}");
+        
+        if (movie.Rate.HasValue && newRating.HasValue) movie.Rate = (movie.Rate + newRating) / 2;
+        else if (newRating.HasValue) movie.Rate = newRating;
+        movie.Rate = (float)Math.Round(movie.Rate.Value, 2);
+
+        DB.Update(movie);
+        DB.Entry(movie).State = EntityState.Modified;
+        try
+        {
+            await DB.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!MovieExists(movie!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/movies");
+    }
+
+    bool MovieExists(int id)
+    {
+        return DB.Movie.Any(e => e.Id == id);
+    }
+}
