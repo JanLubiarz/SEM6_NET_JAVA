@@ -18,5 +18,6 @@ namespace Lab01
             this.waga = waga;
             this.id = id;
         }
+
     }
 }
